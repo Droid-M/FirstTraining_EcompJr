@@ -7,14 +7,20 @@ class User{
     private $type;
     private $password;
 
-    public function __construct($id, $name, $email, $type){
+    public function __construct($id, $name, $email, $type) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->type = $type;
     }
 
-    public static function find($email, $password){
+    public static function find($email, $password) {
+        $result = mysqli_query(Connection::getConnection(), "Select * from users where email = '{$email}' and password = '{$password}'");
+        if(mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
+            return new User($user['id'], $user['name'], $user['email'], $user['type'],$user['patchImage']);
+        }
+        return false;
     }
 
     public static function get($id){

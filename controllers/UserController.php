@@ -29,6 +29,14 @@ class UserController{
     }
     
     public function check(){
+        $userLogged = user::find($_POST['email'], $_POST['password']);
+        if ($userLogged) {
+            $_SESSION['user'] = $userLogged;
+            header("Location:/Treinamento2020/views/users/dashboard.php");
+        }
+        else{
+            header("Location:/Treinamento2020/views/login.php");
+        }
     }
 
     public static function verifyLogin(){
