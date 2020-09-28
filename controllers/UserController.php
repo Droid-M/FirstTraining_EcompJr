@@ -9,9 +9,26 @@ class UserController{
     }
 
     public function create(){
+        header("Location:/Treinamento2020/views/users/admin/create.php");
     }
 
-    public function store(){
+    public function store() {
+        //Verificação necessária para evitar algum erro de índice:
+        if( isset(
+            $_POST['name'],
+            $_POST['email'],
+            $_POST['type'],
+            $_POST['password'],
+            $_POST['password_confirmation'] ) ) {
+                User::create(
+                $_POST['name'],
+                $_POST['email'],
+                $_POST['type'],
+                $_POST['password'],
+                $_POST['password_confirmation'],
+                $_FILES['patchImage']['tmp_name'] );
+        }
+        header("Location:/Treinamento2020/views/users/dashboard.php");
     }
 
     public function edit($id){

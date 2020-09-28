@@ -1,36 +1,56 @@
 <?php
 
+define("imgExtension", ".extensaoQualquer");
+
 class User{
     private $id;
     private $name;
     private $email;
     private $type;
     private $password;
+    private $patchProfileImg;
 
-    public function __construct($id, $name, $email, $type) {
+    public function __construct($id, $name, $email, $type, $patchProfileImg) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->type = $type;
+        $this->patchProfileImg = $patchProfileImg;
     }
 
     public static function find($email, $password) {
         $result = mysqli_query(Connection::getConnection(), "Select * from users where email = '{$email}' and password = '{$password}'");
         if(mysqli_num_rows($result) == 1) {
             $user = mysqli_fetch_assoc($result);
-            return new User($user['id'], $user['name'], $user['email'], $user['type'],$user['patchImage']);
+            return new User(
+            $user['id'],
+            $user['name'],
+            $user['email'],
+            $user['type'],
+            $user['patchImage']);
         }
         return false;
     }
 
-    public static function get($id){
+    public static function get($id) {
     }
 
-    public static function create($name, $email, $type, $password, $password_confirmation){
+    public static function create( $name, $email, $type, $password, $password_confirmation, $patchImage ) {
+        if ($password == $password_confirmation)
+            if (!self::find($email, $password)) {
+                $newIdGener = self::getIdNewbieUser();
+                $newPatchImg = USer::copyImage($patchImage, $newIdGener);
+                mysqli_query(Connection::getConnection(), "Insert into users values (default,
+                '{$name}',
+                '{$email}',
+                '{$password}',
+                '{$type}',
+                '{$newPatchImg}')");
+            }
     }
 
-    public static function all(){
-        $result = mysqli_query(Connection::getConnection(), "Select * from users");
+    public static function all() {
+        $result = mysqli_query( Connection::getConnection(), "Select * from users" );
         $nRows= mysqli_num_rows($result);
         $users=[];
         for($i=0; $i < $nRows; $i++) {
@@ -80,5 +100,32 @@ class User{
 
     public function setPassword($password){
         $this->password = $password;
+    }
+
+    public function getPatchProfileImg() {
+        if(empty($this->patchProfileImg))
+            return "/Treinamento2020/profileImages/Newbie".imgExtension;
+        return $this->patchProfileImg;
+    }
+
+    public function setPatchProfileImg($patchProfileImg) {
+        $this->patchProfileImg = $patchProfileImg;
+    }
+
+    private static function copyImage($patch, $id){
+        if(move_uploaded_file($patch, "profileImages/{$id}".imgExtension))
+            return "/Treinamento2020/profileImages/{$id}".imgExtension;
+        return "";
+    }
+
+    private static function getIdNewbieUser() {
+        $result = mysqli_query(Connection::getConnection(), "Select auto_increment from 
+        information_schema.tables where table_name = 'users' and table_schema = 'backend'");
+        return (int) mysqli_fetch_assoc($result)["auto_increment"];
+    }
+
+    private static function deleteImgProfile($id) {
+        if( file_exists("profileImages/{$id}".imgExtension))
+            unlink("profileImages/{$id}".imgExtension);
     }
 }
