@@ -39,15 +39,28 @@ class UserController{
         }
     }
 
-    public static function verifyLogin(){
+    public static function verifyLogin() {
     }
     
-    public static function verifyAdmin(){
+    public static function verifyAdmin() {
     }
 
-    public static function logout(){
+    public static function logout() {
+        self::dropSession();
+        header("Location:/Treinamento2020/views/home.php");
     }
 
     public static function get($id){
+    }
+
+    public static function setSession() {
+        if(!isset($_SESSION)) { 
+            session_start(); 
+        }
+    }
+
+    public static function dropSession() {
+        if(isset($_SESSION))
+            session_unset();
     }
 }
