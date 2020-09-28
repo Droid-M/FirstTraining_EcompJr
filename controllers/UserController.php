@@ -5,6 +5,7 @@ session_start();
 class UserController{
 
     public function index(){
+        header("Location:/Treinamento2020/views/users/admin/index.php");
     }
 
     public function create(){
@@ -26,6 +27,7 @@ class UserController{
     }
 
     public static function all(){
+        return User::all();
     }
     
     public function check(){
@@ -40,9 +42,15 @@ class UserController{
     }
 
     public static function verifyLogin() {
+        if(empty($_SESSION)) {
+            header("Location:/Treinamento2020/views/home.php");
+        }
     }
     
     public static function verifyAdmin() {
+        if($_SESSION['user']->getType() != "admin") {
+            header("Location:/Treinamento2020/views/home.php");
+        }
     }
 
     public static function logout() {

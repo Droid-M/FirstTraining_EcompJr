@@ -30,6 +30,14 @@ class User{
     }
 
     public static function all(){
+        $result = mysqli_query(Connection::getConnection(), "Select * from users");
+        $nRows= mysqli_num_rows($result);
+        $users=[];
+        for($i=0; $i < $nRows; $i++) {
+            $user = mysqli_fetch_assoc($result);
+            $users[$i] = new User($user['id'], $user['name'], $user['email'], $user['type'], $user['patchImage']);
+        }
+        return $users;
     }
 
     public static function delete($id){

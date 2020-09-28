@@ -6,10 +6,15 @@
     UserController::verifyAdmin();
 ?>
 
+<a href="/Treinamento2020//views/users/dashboard.php">
+<button>
+Acessar painel de controle
+</button>
+</a><br><br>
 
 <?php
     $users = UserController::all();
-    foreach ($users as $user) {
+    foreach($users as $user) {
 ?>
 
     <?php
@@ -20,7 +25,7 @@
         echo $user->getType();
     ?>
     <?php
-        if($user->getId() != $_SESSION['user']->getId()){
+        if($user->getId() != $_SESSION['user']->getId()) {
     ?>
         <a href="/Treinamento2020/user/edit/<?php echo $user->getId()?>">
         <button>
@@ -28,7 +33,7 @@
         </button>
         </a>
     <?php
-        }else{
+        }else {
     ?>
         <a href="/Treinamento2020/user/profile">
         <button>
@@ -41,7 +46,7 @@
     
 
     <?php
-    if($user->getId() != $_SESSION['user']->getId()){
+    if($user->getId() != $_SESSION['user']->getId()) {
     ?>
         <a href="/Treinamento2020/user/delete/<?php echo $user->getId()?>">
         <button>
