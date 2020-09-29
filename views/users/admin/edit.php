@@ -26,7 +26,7 @@
     </form>
 </html>
 
-<a href="/Treinamento2020//views/users/dashboard.php"><button>Cancelar</button></a>
+<a href="/Treinamento2020/views/users/dashboard.php"><button>Cancelar</button></a>
 
 <script>
 function passwordCheck() {

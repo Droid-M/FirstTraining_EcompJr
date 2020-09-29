@@ -1,6 +1,7 @@
 <?php
-    require_once "../controllers/UserController.php";
-    UserController::setSession(); 
+require_once "../controllers/UserController.php";
+    
+UserController::setSession(); 
 ?>
 
 <html>

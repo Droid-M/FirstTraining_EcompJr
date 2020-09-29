@@ -22,7 +22,7 @@
     </form>
 </html>
 
-<a href="/Treinamento2020//views/users/dashboard.php">
+<a href="/Treinamento2020/views/users/dashboard.php">
 <button>
     Cancelar
 </button></a>

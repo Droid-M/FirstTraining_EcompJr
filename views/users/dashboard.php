@@ -10,7 +10,7 @@
 
 <br>
 <br>
-<img src="<?=$_SESSION['user']->getPatchProfileImg()?>" alt="some text" width=300 height=200>
+<img src="<?=$_SESSION['user']->getPatchProfileImg()."?".date('d/m/Y H:i:s')?>" alt="some text" width=300 height=200>
 <br>
 <div>
     <?php

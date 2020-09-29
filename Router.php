@@ -1,11 +1,21 @@
 <?php 
 
+/**
+ * Faz o tratamento dos parametros passados por GET e chama o controlador de acordo com eles
+ * @author EcompJr
+ * @access public
+ *
+ */
 class Router{
     private $url;
     private $controller;
     private $method;
     private $param;
 
+    /**
+     * Faz a chamada para uma classe e seus metodos de acordo com o conteudo da url passada
+     * @param _GET $request Conjunto de informacoes coletadas do navegador apos uma acao do usuario
+     */
     public function start($request){        
         if(isset($request['url'])){
             $this->url = explode('/', $request['url']);
