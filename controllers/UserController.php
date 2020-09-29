@@ -70,6 +70,8 @@ class UserController{
     }
 
     public function delete($id){
+        User::delete($id[0]);
+        header("Location:/Treinamento2020/views/users/dashboard.php");
     }
 
     public static function all(){

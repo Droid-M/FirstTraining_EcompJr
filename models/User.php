@@ -77,6 +77,8 @@ class User{
     }
 
     public static function delete($id){
+        self::deleteImgProfile($id);
+        mysqli_query(Connection::getConnection(), "Delete from users where id = '{$id}'");
     }
 
     public static function update($id, $name, $email, $type, $password, $password_confirmation, $patchImage) {
@@ -163,7 +165,7 @@ class User{
     }
 
     private static function deleteImgProfile($id) {
-        if( file_exists("profileImages/{$id}".imgExtension))
+        if( file_exists("profileImages/{$id}".imgExtension ))
             unlink("profileImages/{$id}".imgExtension);
     }
 }

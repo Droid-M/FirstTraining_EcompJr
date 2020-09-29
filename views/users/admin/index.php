@@ -33,6 +33,11 @@ Acessar painel de controle
         editar
         </button>
         </a>
+        <a href="/Treinamento2020/user/delete/<?php echo $user->getId()?>">
+        <button>
+        excluir
+        </button>
+        </a>
     <?php
         }else {
     ?>
@@ -41,21 +46,6 @@ Acessar painel de controle
         Meu perfil
         </button>
         </a>
-    <?php
-    }
-    ?>
-    
-
-    <?php
-    if($user->getId() != $_SESSION['user']->getId()) {
-    ?>
-        <a href="/Treinamento2020/user/delete/<?php echo $user->getId()?>">
-        <button>
-        excluir
-        </button>
-        </a>
-
-
     <?php
     }
     ?>
