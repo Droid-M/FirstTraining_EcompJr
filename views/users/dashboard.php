@@ -2,15 +2,15 @@
     require_once "../../DB/Connection.php";
     require_once "../../models/User.php";
     require_once "../../controllers/UserController.php";
-    require_once "../../ConectionSession.php";
-    setSession();
+    
     UserController::verifyLogin();
+    UserController::setSession();
     echo "Olá ".$_SESSION['user']->getName()."!";
 ?>
+
 <br>
 <br>
-<a href="/Treinamento2020/user/logout">Sair</a>
-<br>
+<img src="<?=$_SESSION['user']->getPatchProfileImg()?>" alt="some text" width=300 height=200>
 <br>
 <div>
     <?php
@@ -23,3 +23,6 @@
     ?>
 <a href="/Treinamento2020/user/profile">Meu Perfil</a>
 </div>
+<br>
+<br>
+<a href="/Treinamento2020/user/logout">Sair</a>

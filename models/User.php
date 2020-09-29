@@ -126,30 +126,10 @@ class User{
         return $this->password;
     }
 
-    public function setType($name){
-        $this->name = $name;
-    }
-
-    public function setName($name){
-        $this->name = $name;
-    }
-
-    public function setEmail($email){
-        $this->email = $email;
-    }
-
-    public function setPassword($password){
-        $this->password = $password;
-    }
-
     public function getPatchProfileImg() {
         if(empty($this->patchProfileImg))
             return "/Treinamento2020/profileImages/Newbie".imgExtension;
         return $this->patchProfileImg;
-    }
-
-    public function setPatchProfileImg($patchProfileImg) {
-        $this->patchProfileImg = $patchProfileImg;
     }
 
     private static function copyImage($patch, $id){

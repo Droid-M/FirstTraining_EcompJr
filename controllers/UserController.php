@@ -1,6 +1,6 @@
 <?php 
 
-session_start();
+UserController::setSession();
 
 class UserController{
 
@@ -111,7 +111,7 @@ class UserController{
     }
 
     public static function setSession() {
-        if(!isset($_SESSION)) { 
+        if(!isset($_SESSION)) {
             session_start(); 
         }
     }

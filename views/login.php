@@ -1,6 +1,8 @@
 <?php
-    session_start(); 
+    require_once "../controllers/UserController.php";
+    UserController::setSession(); 
 ?>
+
 <html>
     <form action="/Treinamento2020/user/check" method="post">
         Email: <input type="email" name="email" value="" placeholder="Insira seu email aqui" required>      
