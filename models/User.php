@@ -23,16 +23,27 @@ class User{
         if(mysqli_num_rows($result) == 1) {
             $user = mysqli_fetch_assoc($result);
             return new User(
-            $user['id'],
-            $user['name'],
-            $user['email'],
-            $user['type'],
-            $user['patchImage']);
+                $user['id'],
+                $user['name'],
+                $user['email'],
+                $user['type'],
+                $user['patchImage']);
         }
         return false;
     }
 
-    public static function get($id) {
+    public static function get($id){
+        $result = mysqli_query(Connection::getConnection(), "Select * from users where id = '{$id}'");
+        if(mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
+            return new User(
+                $user['id'],
+                $user['name'],
+                $user['email'],
+                $user['type'],
+                $user['patchImage']);
+        }
+        return false;
     }
 
     public static function create( $name, $email, $type, $password, $password_confirmation, $patchImage ) {
@@ -41,11 +52,11 @@ class User{
                 $newIdGener = self::getIdNewbieUser();
                 $newPatchImg = USer::copyImage($patchImage, $newIdGener);
                 mysqli_query(Connection::getConnection(), "Insert into users values (default,
-                '{$name}',
-                '{$email}',
-                '{$password}',
-                '{$type}',
-                '{$newPatchImg}')");
+                    '{$name}',
+                    '{$email}',
+                    '{$password}',
+                    '{$type}',
+                    '{$newPatchImg}')");
             }
     }
 
@@ -55,7 +66,12 @@ class User{
         $users=[];
         for($i=0; $i < $nRows; $i++) {
             $user = mysqli_fetch_assoc($result);
-            $users[$i] = new User($user['id'], $user['name'], $user['email'], $user['type'], $user['patchImage']);
+            $users[$i] = new User(
+                $user['id'],
+                $user['name'],
+                $user['email'],
+                $user['type'],
+                $user['patchImage']);
         }
         return $users;
     }
@@ -63,7 +79,29 @@ class User{
     public static function delete($id){
     }
 
-    public static function update($id, $name, $email, $type, $password, $password_confirmation){
+    public static function update($id, $name, $email, $type, $password, $password_confirmation, $patchImage) {
+        if ($password_confirmation == $password) {
+            if(isset($patchImage)) {
+                $newPatchImg = USer::copyImage($patchImage, $id);
+                mysqli_query(Connection::getConnection(), "Update users set 
+                    name='{$name}',
+                    email='{$email}',
+                    type='{$type}',
+                    password='{$password}',
+                    patchImage='{$newPatchImg}'
+                    where id='{$id}'");
+                if(empty($patchImage))
+                    self::deleteImgProfile($id);
+            }
+            else {
+                mysqli_query(Connection::getConnection(), "Update users set
+                name='{$name}',
+                email='{$email}',
+                type='{$type}',
+                password='{$password}'
+                where id='{$id}'");
+            }
+        }
     }
 
     public function getId(){

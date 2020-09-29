@@ -16,7 +16,7 @@ Acessar painel de controle
     $users = UserController::all();
     foreach($users as $user) {
 ?>
-
+     <img src="<?=$user->getPatchProfileImg()?>" alt="some text" width=50 height=40>
     <?php
         echo $user->getName();
         echo " | ";
