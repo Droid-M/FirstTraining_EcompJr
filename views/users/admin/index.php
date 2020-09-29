@@ -2,6 +2,7 @@
     require_once "../../../DB/Connection.php";
     require_once "../../../models/User.php";
     require_once "../../../controllers/UserController.php";
+    
     UserController::verifyLogin();
     UserController::verifyAdmin();
 ?>
@@ -16,7 +17,7 @@ Acessar painel de controle
     $users = UserController::all();
     foreach($users as $user) {
 ?>
-     <img src="<?=$user->getPatchProfileImg()?>" alt="some text" width=50 height=40>
+     <img src="<?=$user->getPatchProfileImg()."?".date('d/m/Y H:i:s')?>" alt="some text" width=50 height=40>
     <?php
         echo $user->getName();
         echo " | ";

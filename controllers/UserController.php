@@ -32,6 +32,7 @@ class UserController{
     }
 
     public function edit($id){
+        header("Location:/Treinamento2020/views/users/admin/edit.php?id={$id[0]}");
     }
 
     public function profile() {
