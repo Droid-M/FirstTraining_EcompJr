@@ -7,6 +7,19 @@
 ?>
 
 <html>
+    <head>
+        <script>
+            function passwordCheck() {
+                password = create.password.value
+                password_confirmation = create.password_confirmation.value
+                create.action = "/Treinamento2020/user/store"
+                if (password != password_confirmation){
+                    create.action = ""
+                    alert("As senhas diferem!")
+                }
+            }
+        </script>
+    </head>
     <form onsubmit="passwordCheck()" name="create" enctype="multipart/form-data"  method="post">
         <P>Nome: <input name="name" required></P>
         <P>Email: <input type="email" name="email" required></P>
@@ -22,19 +35,6 @@
     </form>
 </html>
 
-<a href="/Treinamento2020/views/users/dashboard.php">
-<button>
+<a href="/Treinamento2020/views/users/dashboard.php"><button>
     Cancelar
 </button></a>
-
-<script>
-function passwordCheck() {
-	password = create.password.value
-	password_confirmation = create.password_confirmation.value
-    create.action = "/Treinamento2020/user/store"
-	if (password != password_confirmation){
-        create.action = ""
-		alert("As senhas diferem!")
-    }
-}
-</script>

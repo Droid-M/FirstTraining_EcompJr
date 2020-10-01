@@ -7,8 +7,7 @@
     UserController::verifyAdmin();
 ?>
 
-<a href="/Treinamento2020/views/users/dashboard.php">
-<button>
+<a href="/Treinamento2020/views/users/dashboard.php"><button>
 Acessar painel de controle
 </button>
 </a><br><br>
